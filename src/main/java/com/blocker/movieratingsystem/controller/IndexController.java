@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class WebController {
+public class IndexController {
 
-    @GetMapping
-    public String index() {
-        log.info("Call index page.");
-        return "index";
-    }
+  @GetMapping
+  public String index() {
+    log.info("index page.");
+    return "index";
+  }
 }

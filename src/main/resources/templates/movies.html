@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+<h3>Movies List</h3>
+<ul>
+    <li th:each="movie : ${movies}">
+        <img th:if="${movie.file != null}" th:src="${movie.file.src}" th:alt="${movie.file.src}">
+        <p th:unless="${movie.file != null}">Movie doesn't contain any file.</p>
+        <h3>Title: <span th:text="${movie.title}"></span></h3>
+        <p>Description: <span th:text="${movie.description}"></span></p>
+        <p>
+        <ul>
+            <li th:each="genre : ${movie.genres}" th:text="${genre}"></li>
+        </ul>
+        </p>
+        <p>Rating:
+            <span th:text="${movie.average}"></span> / 5.0
+        </p>
+        <p>Votes: <span th:text="${movie.ratings.size()}"></span></p>
+    </li>
+</ul>
+</body>
+</html>

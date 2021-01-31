@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new movie</title>
+</head>
+<body>
+<h3>Create new movie</h3>
+<form th:action="@{/movies/save}" enctype="multipart/form-data" method="post" th:object="${newMovie}">
+    <label>Title - <input type="text" th:field="*{title}" placeholder="Enter title . . ."></label><br>
+    <label>Description - <input type="text" th:field="*{description}" placeholder="Enter description . . ."></label><br>
+
+    <th:block th:each="genre : ${genres}">
+        <input type="checkbox" th:id="${genre}" th:field="*{genres}" th:value="${genre}">
+        <label th:for="${genre}" th:text="${genre}"></label><br>
+    </th:block>
+    <label>File - <input type="file" name="mFile"></label><br>
+    <input type="submit" value="Create">
+</form>
+
+<!--todo Don't forget about Jenkins-->
+
+<!--todo and if there will be time try to test Controller layer-->
+
+<!--todo add find movie by GENRE, TITLE, RATING-->
+</body>
+</html>

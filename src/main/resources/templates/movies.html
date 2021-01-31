@@ -8,20 +8,14 @@
 <h3>Movies List</h3>
 <ul>
     <li th:each="movie : ${movies}">
-        <img th:if="${movie.file != null}" th:src="${movie.file.src}" th:alt="${movie.file.src}">
         <p th:unless="${movie.file != null}">Movie doesn't contain any file.</p>
-        <h3>Title: <span th:text="${movie.title}"></span></h3>
-        <p>Description: <span th:text="${movie.description}"></span></p>
-        <p>
-        <ul>
-            <li th:each="genre : ${movie.genres}" th:text="${genre}"></li>
-        </ul>
-        </p>
-        <p>Rating:
-            <span th:text="${movie.average}"></span> / 5.0
-        </p>
-        <p>Votes: <span th:text="${movie.ratings.size()}"></span></p>
+        <h4 th:if="${movie.title.isBlank()}"><a th:href="@{/movies/{id}(id=${movie.id})}">Title is not presented, please
+            update movie information</a>
+        </h4>
+        <h4 th:unless="${movie.title.isBlank()}"><a th:href="@{/movies/{id}(id=${movie.id})}"
+                                                    th:text="${movie.title}"></a></h4>
     </li>
 </ul>
+<a th:href="@{/movies/create}">Add new movie</a>
 </body>
 </html>

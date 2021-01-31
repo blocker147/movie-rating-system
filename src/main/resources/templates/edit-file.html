@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File</title>
+</head>
+<body>
+<h3>Edit file</h3>
+<form th:action="@{/movies/{id}/files/update(id=${movie.id})}" enctype="multipart/form-data" method="post">
+    <label>Choose new File - <input type="file" name="mFile"></label><br>
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit movie</title>
+</head>
+<body>
+<h3>Edit movie</h3>
+<form th:action="@{/movies/{id}/update(id=${movie.id})}" method="post" th:object="${movie}">
+    <label>Title - <input type="text" th:field="*{title}" th:value="${movie.title}"
+                          placeholder="Enter title . . ."></label><br>
+    <label>Description - <input type="text" th:field="*{description}" th:value="${movie.description}"
+                                placeholder="Enter description . . ."></label><br>
+
+    <th:block th:each="genre : ${checkedGenres}">
+
+        <th:block th:if="${genre.isChecked}">
+            <input type="checkbox" th:id="${genre.genre}" th:field="*{genres}" th:value="${genre.genre}" checked>
+            <label th:for="${genre.genre}" th:text="${genre.genre}"></label><br>
+        </th:block>
+        <th:block th:unless="${genre.isChecked}">
+            <input type="checkbox" th:id="${genre.genre}" th:field="*{genres}" th:value="${genre.genre}">
+            <label th:for="${genre.genre}" th:text="${genre.genre}"></label><br>
+        </th:block>
+    </th:block>
+
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

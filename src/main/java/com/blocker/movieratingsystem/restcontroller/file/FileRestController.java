@@ -7,8 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
-
+// todo
+// RestControllers must be tested
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/files")
@@ -45,5 +50,20 @@ public class FileRestController {
   public void deleteById(@PathVariable Long id) {
     log.info("deleteById(id='{}')", id);
     fileService.deleteById(id);
+  }
+
+  @GetMapping("/img/{title}")
+  public void displayImage(@PathVariable String title, HttpServletResponse response) {
+    String folder = "/Users/ilja.tarasovs/accentureRoadmap/movie-rating-system/files/";
+    try {
+      String fileName = folder + title + ".jpg";
+      File file = new File(fileName);
+      if (!file.exists()) {
+        file = new File(folder + "default.jpg");
+      }
+      Files.copy(file.toPath(), response.getOutputStream());
+    } catch (IOException e) {
+      log.error("displayImage exception='{}', e='{}'", e.getMessage(), e);
+    }
   }
 }

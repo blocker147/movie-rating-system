@@ -17,7 +17,7 @@ public class MovieDTO {
   private String title;
   private String description;
   private Genre[] genres;
-  private FileDTO file;
+  private FileDTO file = new FileDTO();
   private Set<RatingDTO> ratings = new HashSet<>();
   private BigDecimal average = new BigDecimal("0.0");
 }

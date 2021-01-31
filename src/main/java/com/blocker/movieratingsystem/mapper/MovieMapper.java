@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -59,7 +60,8 @@ public class MovieMapper {
 
       movieDTO.setAverage(
           BigDecimal.valueOf(
-              movie.getRatings().stream().mapToInt(Rating::getMark).average().getAsDouble()));
+                  movie.getRatings().stream().mapToInt(Rating::getMark).average().getAsDouble())
+              .setScale(2, RoundingMode.HALF_EVEN));
     }
 
     log.info("Mapped movieDTO='{}'", movieDTO);

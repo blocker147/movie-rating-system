@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .checked {
+            color: orange;
+        }
+        .vote > form {
+            float: left
+        }
+        .last-vote {
+            float: none;
+        }
+        .vote > form > button {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+        }
+        .fa-star {
+            font-size: 20px;
+        }
+        .fa-star:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        .fa-star-orange {
+            color: orange;
+        }
+        .fa-star-black {
+            color: black;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<h3 th:text="${movie.title}"></h3>
+<p th:text="${movie.description}"></p>
+<p th:if="${movie.title == null || movie.title.isBlank()}">Title is not presented for this movie</p>
+<p th:if="${movie.description == null || movie.description.isBlank()}">Description is not presented for this movie</p>
+<p th:if="${movie.genres == null || movie.genres.length == 0}">Genres is not presented for this movie</p>
+<ul>
+    <li th:each="genre : ${movie.genres}" th:text="${genre}"></li>
+</ul>
+<p>Rating:
+    <span th:text="${movie.average}"></span> / 5.0
+</p>
+
+<div class="vote">
+    <form th:action="@{/movies/{id}/vote(id=${movie.id})}" method="post">
+        <input type="number" name="mark" value="1" hidden>
+        <button type="submit">
+            <span th:if="${avg >= 1}" class="fa fa-star fa-star-orange"></span>
+            <span th:unless="${avg >= 1}" class="fa fa-star fa-star-black"></span>
+        </button>
+    </form>
+    <form th:action="@{/movies/{id}/vote(id=${movie.id})}" method="post">
+        <input type="number" name="mark" value="2" hidden>
+        <button type="submit">
+            <span th:if="${avg >= 2}" class="fa fa-star fa-star-orange"></span>
+            <span th:unless="${avg >= 2}" class="fa fa-star fa-star-black"></span>
+        </button>
+    </form>
+    <form th:action="@{/movies/{id}/vote(id=${movie.id})}" method="post">
+        <input type="number" name="mark" value="3" hidden>
+        <button type="submit">
+            <span th:if="${avg >= 3}" class="fa fa-star fa-star-orange"></span>
+            <span th:unless="${avg >= 3}" class="fa fa-star fa-star-black"></span>
+        </button>
+    </form>
+    <form th:action="@{/movies/{id}/vote(id=${movie.id})}" method="post">
+        <input type="number" name="mark" value="4" hidden>
+        <button type="submit">
+            <span th:if="${avg >= 4}" class="fa fa-star fa-star-orange"></span>
+            <span th:unless="${avg >= 4}" class="fa fa-star fa-star-black"></span>
+        </button>
+    </form>
+    <form th:action="@{/movies/{id}/vote(id=${movie.id})}" method="post" class="last-vote">
+        <input type="number" name="mark" value="5" hidden>
+        <button type="submit">
+            <span th:if="${avg >= 5}" class="fa fa-star fa-star-orange"></span>
+            <span th:unless="${avg >= 5}" class="fa fa-star fa-star-black"></span>
+        </button>
+    </form>
+</div>
+<br>
+
+<p>
+    Votes: <span th:text="${movie.ratings.size()}"></span><br>
+</p>
+
+<img th:src="@{/api/v1/files/img/} + ${movie.file.src}"><br>
+<a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit movie</a><br>
+<a th:href="@{/movies/{id}/files/edit(id=${movie.id})}">Edit file</a><br>
+<form th:action="@{/movies/{id}/delete(id=${movie.id})}" method="post">
+    <input type="submit" value="Delete movie">
+</form><br>
+<a th:href="@{/movies}">Back to movies list</a><br>
+
+</body>
+</html>

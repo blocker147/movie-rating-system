@@ -12,8 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-// todo
-// RestControllers must be tested
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/files")

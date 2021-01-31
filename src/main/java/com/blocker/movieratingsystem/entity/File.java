@@ -19,7 +19,6 @@ public class File {
 
   @Column private String src;
 
-  // todo file cannot be removed if Movie related to file ?
   @OneToOne(mappedBy = "file")
   private Movie movie;
 

@@ -16,12 +16,15 @@ import java.util.Map;
 @RestControllerAdvice
 public class CustomRestControllerAdvice {
 
+    private static final String MESSAGE = "message";
+    private static final String STATUS_CODE = "statusCode"; 
+    
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(FileNotFoundException.class)
     public Map<String, Object> handleFileNotFoundException(FileNotFoundException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("message", exception.getMessage());
-        response.put("statusCode", HttpStatus.NOT_FOUND);
+        response.put(MESSAGE, exception.getMessage());
+        response.put(STATUS_CODE, HttpStatus.NOT_FOUND);
         return response;
     }
 
@@ -29,8 +32,8 @@ public class CustomRestControllerAdvice {
     @ExceptionHandler(RatingNotFoundException.class)
     public Map<String, Object> handleRatingNotFoundException(RatingNotFoundException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("message", exception.getMessage());
-        response.put("statusCode", HttpStatus.NOT_FOUND);
+        response.put(MESSAGE, exception.getMessage());
+        response.put(STATUS_CODE, HttpStatus.NOT_FOUND);
         return response;
     }
 
@@ -38,8 +41,8 @@ public class CustomRestControllerAdvice {
     @ExceptionHandler(MovieNotFoundException.class)
     public Map<String, Object> handleMovieNotFoundException(MovieNotFoundException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("message", exception.getMessage());
-        response.put("statusCode", HttpStatus.NOT_FOUND);
+        response.put(MESSAGE, exception.getMessage());
+        response.put(STATUS_CODE, HttpStatus.NOT_FOUND);
         return response;
     }
 }

@@ -2,7 +2,6 @@ package com.blocker.movieratingsystem.service.file;
 
 import com.blocker.movieratingsystem.entity.Entities;
 import com.blocker.movieratingsystem.entity.File;
-import com.blocker.movieratingsystem.entity.Movie;
 import com.blocker.movieratingsystem.exception.FileNotFoundException;
 import com.blocker.movieratingsystem.mapper.FileMapper;
 import com.blocker.movieratingsystem.model.FileDTO;
@@ -35,13 +34,11 @@ class FileServiceImplTest {
   @MockBean private FileRepository fileRepository;
   @MockBean private MovieRepository movieRepository;
 
-  private static File FILE_WITHOUT_ID;
   private static File FILE_WITH_ID;
   private static final Long ID = Entities.LONG_VALUE;
 
   @BeforeEach
   void setUp() {
-    FILE_WITHOUT_ID = Entities.getFileWithoutId();
     FILE_WITH_ID = Entities.getFile();
   }
 

@@ -30,6 +30,8 @@ public class MoviesController {
   @Autowired private FileService fileService;
   @Autowired private MovieService movieService;
   @Autowired private RatingService ratingService;
+  private static final String MOVIE = "movie";
+  private static final String REDIRECT_MOVIE_ID = "redirect:/movies/";
 
   @GetMapping
   public String findAll(Model model) {
@@ -42,10 +44,10 @@ public class MoviesController {
   public String findById(@PathVariable Long id, Model model) {
     log.info("movie page with id='{}'", id);
     MovieDTO foundMovieDTO = movieService.findById(id);
-    model.addAttribute("movie", foundMovieDTO);
+    model.addAttribute(MOVIE, foundMovieDTO);
     model.addAttribute("newRatingDTO", new RatingDTO());
     model.addAttribute("avg", foundMovieDTO.getAverage().doubleValue());
-    return "movie";
+    return MOVIE;
   }
 
   @GetMapping("/create")
@@ -76,14 +78,14 @@ public class MoviesController {
       log.error("saveMovie exception='{}', e='{}'", e.getMessage(), e);
     }
     MovieDTO savedMovieDTO = movieService.save(movieDTO);
-    return "redirect:/movies/" + savedMovieDTO.getId();
+    return REDIRECT_MOVIE_ID + savedMovieDTO.getId();
   }
 
   @GetMapping("/{id}/edit")
   public String editMovie(@PathVariable Long id, Model model) {
     log.info("edit movie with id='{}'", id);
     MovieDTO foundMovieDTO = movieService.findById(id);
-    model.addAttribute("movie", foundMovieDTO);
+    model.addAttribute(MOVIE, foundMovieDTO);
 
     List<CheckedGenres> checkedGenres = new ArrayList<>();
     boolean isPresented = false;
@@ -111,14 +113,14 @@ public class MoviesController {
   public String updateMovie(@PathVariable Long id, @ModelAttribute MovieDTO newMovieDTO) {
     log.info("update movie='{}'", newMovieDTO);
     MovieDTO updatedMovieDTO = movieService.updateById(id, newMovieDTO);
-    return "redirect:/movies/" + updatedMovieDTO.getId();
+    return REDIRECT_MOVIE_ID + updatedMovieDTO.getId();
   }
 
   @PostMapping("/{id}/vote")
   public String voteForMovie(@PathVariable Long id, @RequestParam int mark) {
     log.info("voteForMovie='{}', mark='{}'", id, mark);
     ratingService.addRatingToMovie(id, new RatingDTO(null, mark));
-    return "redirect:/movies/" + id;
+    return REDIRECT_MOVIE_ID + id;
   }
 
   @PostMapping("/{id}/delete")
@@ -131,7 +133,7 @@ public class MoviesController {
   @GetMapping("/{id}/files/edit")
   public String editFile(@PathVariable Long id, Model model) {
     log.info("editFile='{}'", id);
-    model.addAttribute("movie", movieService.findById(id));
+    model.addAttribute(MOVIE, movieService.findById(id));
     return "edit-file";
   }
 
@@ -154,6 +156,6 @@ public class MoviesController {
     } catch (IOException e) {
       log.error("saveMovie exception='{}', e='{}'", e.getMessage(), e);
     }
-    return "redirect:/movies/" + id;
+    return REDIRECT_MOVIE_ID + id;
   }
 }

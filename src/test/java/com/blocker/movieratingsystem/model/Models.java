@@ -6,6 +6,7 @@ import java.util.Collections;
 
 public final class Models {
 
+  public static final Long LONG_VALUE = 1L;
   public static final int INT_VALUE = 1;
   public static final int UPDATED_INT_VALUE = 5;
   public static final String STRING_VALUE = "string";
